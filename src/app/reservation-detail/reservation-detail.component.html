@@ -1,0 +1,17 @@
+<div *ngIf="reservation">
+	<p>Reservation Id: {{ reservation.reservationId }}</p>
+	<p>User Name: {{ reservation.userName }}</p>
+	<p>Boat: {{ reservation.boatName }}</p>
+	<p>Start Time: {{ reservation.startTime }}</p>
+	<p>End Time: {{ reservation.endTime }}</p>
+
+	<div>
+		<p><label>User Name: </label><input [(ngModel)]="reservation.userName" placeholder="Username"></p>
+		<p><label>Boat: </label><input [(ngModel)]="reservation.boatName" placeholder="Boat"></p>
+		<p><label>Start Time: </label><input [(ngModel)]="reservation.startTime" placeholder="Start Time"></p>
+		<p><label>End Time: </label><input [(ngModel)]="reservation.endTime" placeholder="End Time"></p>
+		<p><label>Itinerary: </label><input [(ngModel)]="reservation.itinerary" placeholder="Where are you going?"></p>
+	</div>
+	<button (click)="save()">Save</button>
+	<button (click)="goBack()">Back</button>
+</div>

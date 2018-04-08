@@ -1,0 +1,4 @@
+<h3>Recent Reservations</h3>
+<a *ngFor="let r of reservations" [routerLink]="['/detail', r.ReservationId]" class="col-lg-4">
+	<p>{{ r.boatName }} - {{ r.userName }} - {{ r.startTime }}</p>
+</a>
