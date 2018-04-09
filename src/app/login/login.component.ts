@@ -27,8 +27,10 @@ export class LoginComponent implements OnInit {
   		return;
   	}
 
-  	this.loginService.getToken(login).then(token => this.token = token);
-  	//console.log(this.token.access_token);
+  	this.loginService.getToken(login).then(token => { 
+      this.token = token,
+      this.router.navigate(['./dashboard'])
+    });
   }
 
   ngOnInit() {

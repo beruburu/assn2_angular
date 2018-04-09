@@ -7,14 +7,17 @@ import { Reservation } from './reservation';
 
 @Injectable()
 export class ReservationService {
-  private BASE_URL = "http://localhost:63627/api/reservations";
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private BASE_URL = "http://lmycweb.azurewebsites.net/api/reservations";
+  private headers;
 
   constructor(private http: Http) { }
 
   getReservations(): Promise<Reservation[]> {
+    this.headers = new Headers({'Content-Type': 'application/json'});
+    this.headers.append('Authorization', 'Bearer ' + sessionStorage.getItem("token").replace(new RegExp('\"', 'g'), ''));
+
   	return this.http
-      .get(this.BASE_URL)
+      .get(this.BASE_URL, { headers: this.headers })
       .toPromise()
       .then(response => response.json() as Reservation[])
       .catch(this.handleError);
@@ -28,6 +31,9 @@ export class ReservationService {
   }
 
   create(newReservation: Reservation): Promise<Reservation> {
+    this.headers = new Headers({'Content-Type': 'application/json'});
+    this.headers.append('Authorization', 'Bearer ' + sessionStorage.getItem("token").replace(new RegExp('\"', 'g'), ''));
+
     return this.http
       .post(this.BASE_URL, JSON.stringify(newReservation), { headers: this.headers })
       .toPromise()
@@ -37,6 +43,8 @@ export class ReservationService {
 
   update(reservation: Reservation): Promise<Reservation> {
   	const url = `${this.BASE_URL}/${reservation.reservationId}`;
+    this.headers = new Headers({'Content-Type': 'application/json'});
+    this.headers.append('Authorization', 'Bearer ' + sessionStorage.getItem("token").replace(new RegExp('\"', 'g'), ''));
 
   	return this.http
       .put(url, JSON.stringify(reservation), { headers: this.headers })
